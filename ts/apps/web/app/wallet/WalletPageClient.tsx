@@ -47,10 +47,6 @@ function fmtUsdcRaw(raw: string): number {
   return Number(raw) / 10 ** USDC_DECIMALS;
 }
 
-function shortenSig(sig: string): string {
-  return `${sig.slice(0, 4)}…${sig.slice(-4)}`;
-}
-
 function shortenAddr(addr: string): string {
   return `${addr.slice(0, 4)}…${addr.slice(-4)}`;
 }
@@ -65,7 +61,7 @@ function copyText(text: string) {
 function DisconnectedState() {
   const openConnect = useSetAtom(connectModalOpenAtom);
   return (
-    <div className="flex flex-col items-center gap-5 rounded-xl border border-line bg-surface px-6 py-16 text-center">
+    <div className="flex flex-col items-center gap-5 rounded-2xl border border-line bg-surface px-6 py-16 text-center">
       <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-line-2 bg-surface-3">
         <WalletIcon size={24} className="text-ink-3" />
       </span>
@@ -105,7 +101,7 @@ function WalletSummary({
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-surface px-[18px] py-3.5">
+    <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-surface px-[18px] py-3.5">
       <div className="flex items-center gap-3">
         <span className="flex h-9 w-9 flex-none items-center justify-center rounded-lg border border-line-2 bg-surface-3">
           <WalletIcon size={18} className="text-mint" />
@@ -180,16 +176,16 @@ function BalanceMetrics() {
       tip: "Available USDC in your connected wallet.",
     },
     {
-      label: "BNKR balance",
+      label: "WNDR balance",
       value: loading ? <Shimmer className="h-5 w-20" /> : fmtNum(bnkr, 4),
-      unit: "BNKR",
-      tip: "BunkerCash tokens held in your wallet.",
+      unit: "WNDR",
+      tip: "WonderToken tokens held in your wallet.",
     },
     {
       label: "In escrow",
       value: loading ? <Shimmer className="h-5 w-20" /> : fmtNum(escrowBnkr, 4),
-      unit: "BNKR",
-      tip: "BNKR locked in open sell requests — returned if you cancel.",
+      unit: "WNDR",
+      tip: "WNDR locked in open sell requests — returned if you cancel.",
     },
     {
       label: "Pending USDC",
@@ -247,13 +243,13 @@ function statusTone(status?: SellStatus): PillTone {
     case "pending":
       return "warn";
     case "partial":
-      return "info";
+      return "warn";
     case "settled":
-      return "mint";
+      return "up";
     case "cancelled":
       return "neutral";
     default:
-      return "mint";
+      return "up";
   }
 }
 
@@ -294,7 +290,7 @@ function TxDesktopRow({
       <td className="px-[18px] py-3">
         <span className="flex items-center gap-2.5">
           <span
-            className={`h-[7px] w-[7px] flex-none rounded-sm ${isBuy ? "bg-mint" : "bg-sell"}`}
+            className={`h-[7px] w-[7px] flex-none rounded-sm ${isBuy ? "bg-up" : "bg-sell"}`}
           />
           <span className="text-[13px] font-medium">
             {isBuy ? "Buy" : "Sell"}
@@ -303,7 +299,7 @@ function TxDesktopRow({
       </td>
       <td className="px-3 py-3">
         <span
-          className={`whitespace-nowrap font-mono text-[13px] tabular-nums ${isBuy ? "text-mint" : "text-sell"}`}
+          className={`whitespace-nowrap font-mono text-[13px] tabular-nums ${isBuy ? "text-up" : "text-sell"}`}
         >
           {amount}
         </span>
@@ -312,7 +308,7 @@ function TxDesktopRow({
         {tx.tokenAmount != null && tx.tokenAmount > 0 && (
           <span className="whitespace-nowrap font-mono text-[12.5px] tabular-nums text-ink-2">
             {tx.tokenAmount.toLocaleString("en-US", { maximumFractionDigits: 4 })}{" "}
-            BNKR
+            WNDR
           </span>
         )}
       </td>
@@ -382,7 +378,7 @@ function TxMobileCard({
       <div className="flex items-center justify-between gap-2">
         <span className="flex items-center gap-2">
           <span
-            className={`h-[7px] w-[7px] flex-none rounded-sm ${isBuy ? "bg-mint" : "bg-sell"}`}
+            className={`h-[7px] w-[7px] flex-none rounded-sm ${isBuy ? "bg-up" : "bg-sell"}`}
           />
           <span className="text-[13px] font-medium">
             {isBuy ? "Buy" : "Sell"}
@@ -392,7 +388,7 @@ function TxMobileCard({
           </StatusPill>
         </span>
         <span
-          className={`whitespace-nowrap font-mono text-[13px] font-medium tabular-nums ${isBuy ? "text-mint" : "text-sell"}`}
+          className={`whitespace-nowrap font-mono text-[13px] font-medium tabular-nums ${isBuy ? "text-up" : "text-sell"}`}
         >
           {amount}
         </span>
@@ -416,7 +412,7 @@ function TxMobileCard({
                   maximumFractionDigits: 4,
                 })}
               </span>{" "}
-              BNKR
+              WNDR
             </>
           )}
         </span>
@@ -584,7 +580,7 @@ function ClaimRow({
   const tone: PillTone = claim.cancelled
     ? "neutral"
     : claim.processed
-      ? "mint"
+      ? "up"
       : paid > 0
         ? "info"
         : "warn";

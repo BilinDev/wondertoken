@@ -44,8 +44,13 @@ function shortenAddress(value: string): string {
 // ---------------------------------------------------------------------------
 function CompositionBar({
   segments,
+  prefix = "",
+  suffix = "",
 }: {
   segments: { label: string; value: number; color: string }[];
+  /** Rendered around each legend value, e.g. prefix "$" or suffix " WNDR". */
+  prefix?: string;
+  suffix?: string;
 }) {
   const total = segments.reduce((s, seg) => s + seg.value, 0);
   if (total <= 0) return null;
@@ -74,7 +79,9 @@ function CompositionBar({
             />
             <span className="text-ink-3">{seg.label}</span>
             <span className="font-mono tabular-nums text-ink-2">
-              ${fmtCompact(seg.value)}
+              {prefix}
+              {fmtCompact(seg.value)}
+              {suffix}
             </span>
             <span className="text-ink-3">
               ({pct(seg.value, total).toFixed(1)}%)
@@ -89,10 +96,10 @@ function CompositionBar({
 // ---------------------------------------------------------------------------
 // Pool page
 // ---------------------------------------------------------------------------
+const shimmer = <Shimmer className="h-5 w-24" />;
+
 export default function PoolPage() {
   const { stats, loading, refreshing, error, refresh } = usePoolStats();
-
-  const shimmer = <Shimmer className="h-5 w-24" />;
 
   const summaryMetrics: Metric[] = useMemo(
     () => [
@@ -105,13 +112,13 @@ export default function PoolPage() {
       {
         label: "Reference value (NAV)",
         value: loading ? shimmer : stats.navUsdcRaw != null ? `$${fmtCompact(stats.navUsdcRaw)}` : "—",
-        tip: "Total USDC value tracked on-chain backing all circulating BNKR.",
+        tip: "Total USDC value tracked on-chain backing all circulating WNDR.",
       },
       {
         label: "Treasury USDC",
         value: loading ? shimmer : stats.treasuryUsdcRaw != null ? `$${fmtCompact(stats.treasuryUsdcRaw)}` : "—",
         tip: "Liquid USDC held in the protocol treasury account.",
-        valueClassName: "text-mint",
+        valueClassName: "text-up",
       },
       {
         label: "Pending claims",
@@ -128,24 +135,24 @@ export default function PoolPage() {
       {
         label: "Total supply",
         value: loading ? shimmer : stats.totalSupply ?? "—",
-        unit: "BNKR",
-        tip: "All BNKR tokens that exist — circulating plus escrowed for pending sells.",
+        unit: "WNDR",
+        tip: "All WNDR tokens that exist — circulating plus escrowed for pending sells.",
       },
       {
         label: "Circulating supply",
         value: loading ? shimmer : stats.circulatingSupply ?? "—",
-        unit: "BNKR",
-        tip: "BNKR freely held by users. Escrow tokens back pending sell requests and are excluded until settled.",
+        unit: "WNDR",
+        tip: "WNDR freely held by users. Escrow tokens back pending sell requests and are excluded until settled.",
       },
       {
-        label: "Escrowed BNKR",
+        label: "Escrowed WNDR",
         value: loading
           ? shimmer
           : stats.totalSupplyRaw != null && stats.circulatingSupplyRaw != null
             ? fmtCompact(stats.totalSupplyRaw - stats.circulatingSupplyRaw)
             : "—",
-        unit: "BNKR",
-        tip: "BNKR locked in escrow for open sell requests — returned if cancelled, burned at settlement.",
+        unit: "WNDR",
+        tip: "WNDR locked in escrow for open sell requests — returned if cancelled, burned at settlement.",
       },
     ],
     [loading, stats],
@@ -208,7 +215,7 @@ export default function PoolPage() {
         tip: "Pool authority currently configured on-chain.",
       },
     ],
-    [loading, shimmer, stats],
+    [loading, stats],
   );
 
   const treasurySegments = useMemo(() => {
@@ -233,9 +240,9 @@ export default function PoolPage() {
   const liquidityHealth = useMemo(() => {
     if (stats.treasuryUsdcRaw == null || stats.pendingClaimsUsdcRaw == null)
       return null;
-    if (stats.pendingClaimsUsdcRaw <= 0) return { ratio: Infinity, label: "Healthy", tone: "text-mint" as const };
+    if (stats.pendingClaimsUsdcRaw <= 0) return { ratio: Infinity, label: "Healthy", tone: "text-up" as const };
     const ratio = stats.treasuryUsdcRaw / stats.pendingClaimsUsdcRaw;
-    if (ratio >= 2) return { ratio, label: "Healthy", tone: "text-mint" as const };
+    if (ratio >= 2) return { ratio, label: "Healthy", tone: "text-up" as const };
     if (ratio >= 1) return { ratio, label: "Adequate", tone: "text-info" as const };
     return { ratio, label: "Low", tone: "text-warn" as const };
   }, [stats.treasuryUsdcRaw, stats.pendingClaimsUsdcRaw]);
@@ -246,7 +253,7 @@ export default function PoolPage() {
         {/* Page heading */}
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="flex flex-col gap-0.5">
-            <h1 className="text-xl font-semibold tracking-[-0.01em]">Pool</h1>
+            <h1 className="text-xl font-semibold tracking-[-0.01em]">Token stats</h1>
             <span className="text-[13px] text-ink-3">
               Read-only protocol transparency — supply, treasury, and settlement
               metrics sourced directly from on-chain state.
@@ -303,7 +310,7 @@ export default function PoolPage() {
         {treasurySegments && !loading && (
           <SectionCard label="Treasury composition">
             <CardHeader title="Treasury composition" />
-            <CompositionBar segments={treasurySegments} />
+            <CompositionBar segments={treasurySegments} prefix="$" />
           </SectionCard>
         )}
 
@@ -312,7 +319,7 @@ export default function PoolPage() {
           <CardHeader title="Supply composition" />
           <MetricGrid metrics={supplyMetrics} />
           {supplySegments && !loading && (
-            <CompositionBar segments={supplySegments} />
+            <CompositionBar segments={supplySegments} suffix=" WNDR" />
           )}
         </SectionCard>
 

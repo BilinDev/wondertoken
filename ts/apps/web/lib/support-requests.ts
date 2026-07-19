@@ -11,7 +11,8 @@ import {
 const BINDING = SUPPORT_REQUESTS_KV_BINDING;
 const RATE_LIMIT_BINDING = "SUPPORT_RATE_LIMIT";
 const RATE_LIMIT_CHECK_URL = "https://support-rate-limit.internal/check";
-const FALLBACK_SUPPORT_EMAIL = "support@bunkercash.com";
+// Fallback only — set NEXT_PUBLIC_SUPPORT_EMAIL to the monitored inbox.
+const FALLBACK_SUPPORT_EMAIL = "support@wondercall.ai";
 const IP_RATE_LIMIT_MAX_REQUESTS = 3;
 const IP_RATE_LIMIT_WINDOW_SECONDS = 15 * 60;
 const EMAIL_RATE_LIMIT_MAX_REQUESTS = 5;

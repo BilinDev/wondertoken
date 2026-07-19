@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export function TokenChip({ token }: { token: "USDC" | "BNKR" }) {
+export function TokenChip({ token }: { token: "USDC" | "WNDR" }) {
   return (
     <span className="inline-flex h-[34px] flex-none items-center gap-[7px] rounded-lg border border-line-2 bg-surface-3 px-3 text-[13px] font-semibold">
       <span
@@ -25,7 +25,7 @@ export function AmountInputCard({
   error,
 }: {
   label: string;
-  token: "USDC" | "BNKR";
+  token: "USDC" | "WNDR";
   value: string;
   onChange: (v: string) => void;
   balance: string;
@@ -88,7 +88,7 @@ export function AmountOutputCard({
   balance,
 }: {
   label: string;
-  token: "USDC" | "BNKR";
+  token: "USDC" | "WNDR";
   value: string;
   balance: string;
 }) {

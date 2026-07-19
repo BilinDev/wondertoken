@@ -99,7 +99,7 @@ export function ConnectWalletModal() {
         role="dialog"
         aria-modal="true"
         aria-label="Connect a wallet"
-        className="flex w-full max-w-[420px] animate-sheet-in flex-col gap-4 rounded-[14px] border border-line-2 bg-surface-2 p-5 pb-[calc(20px+env(safe-area-inset-bottom))] shadow-pop max-[839px]:max-w-none max-[839px]:rounded-b-none desk:pb-5"
+        className="flex w-full max-w-[420px] animate-sheet-in flex-col gap-4 rounded-[18px] border border-line-2 bg-surface-2 p-5 pb-[calc(20px+env(safe-area-inset-bottom))] shadow-pop max-[839px]:max-w-none max-[839px]:rounded-b-none desk:pb-5"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex flex-col gap-[3px]">
@@ -107,10 +107,7 @@ export function ConnectWalletModal() {
               Connect a wallet
             </span>
             <span className="text-[12.5px] text-ink-3">
-              {clusterLabel(cluster)}
-              {cluster !== "mainnet-beta"
-                ? " — no real funds are involved."
-                : ""}
+              {clusterLabel(cluster)} · non-custodial
             </span>
           </div>
           <button
@@ -171,7 +168,7 @@ export function ConnectWalletModal() {
 
         <span className="text-center text-[11.5px] leading-relaxed text-ink-3">
           By connecting you accept the <Link href="/information">Terms</Link>.
-          BunkerCash never has custody of your keys or funds.
+          WonderToken never has custody of your keys or funds.
         </span>
       </div>
     </div>

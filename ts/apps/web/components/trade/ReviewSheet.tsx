@@ -20,7 +20,7 @@ export type SheetRow = {
   /** Bold + emphasized (first and last rows in the design). */
   strong?: boolean;
   /** Value color accent. */
-  tone?: "mint" | "warn";
+  tone?: "up" | "warn";
   /** Highlighted row background (the "You receive" row). */
   highlight?: boolean;
 };
@@ -87,8 +87,8 @@ export function ReviewSheet({
         ? "Review purchase"
         : "Review sell request"
       : isBuy
-        ? "Buy BNKR"
-        : "Sell BNKR";
+        ? "Buy WNDR"
+        : "Sell WNDR";
   const sub =
     phase === "review"
       ? "Check the details before signing."
@@ -104,7 +104,7 @@ export function ReviewSheet({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="flex w-full max-w-[440px] animate-sheet-in flex-col gap-4 rounded-[14px] border border-line-2 bg-surface-2 p-5 pb-[calc(20px+env(safe-area-inset-bottom))] shadow-pop max-[839px]:max-w-none max-[839px]:rounded-b-none desk:pb-5"
+        className="flex w-full max-w-[440px] animate-sheet-in flex-col gap-4 rounded-[18px] border border-line-2 bg-surface-2 p-5 pb-[calc(20px+env(safe-area-inset-bottom))] shadow-pop max-[839px]:max-w-none max-[839px]:rounded-b-none desk:pb-5"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex flex-col gap-[3px]">
@@ -139,8 +139,8 @@ export function ReviewSheet({
                     className={cn(
                       "text-right font-mono text-[12.5px] tabular-nums",
                       r.strong ? "font-semibold" : "font-normal",
-                      r.tone === "mint"
-                        ? "text-mint"
+                      r.tone === "up"
+                        ? "text-up"
                         : r.tone === "warn"
                           ? "text-warn"
                           : r.strong
@@ -227,7 +227,7 @@ export function ReviewSheet({
         {phase === "success" && (
           <>
             <div className="flex flex-col items-center gap-3 px-0 pb-1 pt-[18px] text-center">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-mint-line bg-mint-soft text-mint">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-up-line bg-up-soft text-up">
                 <CheckIcon />
               </span>
               <span className="text-[14.5px] font-semibold">
@@ -235,8 +235,8 @@ export function ReviewSheet({
               </span>
               <span className="max-w-[320px] text-[13px] leading-relaxed text-ink-2">
                 {isBuy
-                  ? "BNKR was minted to your wallet. It may take a moment to appear in your balance."
-                  : "Your BNKR is escrowed for settlement. Track or cancel the request from the Wallet page."}
+                  ? "WNDR was minted to your wallet. It may take a moment to appear in your balance."
+                  : "Your WNDR is escrowed for settlement. Track or cancel the request from the Wallet page."}
               </span>
             </div>
             {receipt.length > 0 && (

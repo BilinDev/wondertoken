@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { BN } from "@coral-xyz/anchor";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { PublicKey, SendTransactionError, Transaction } from "@solana/web3.js";
+import { PublicKey, Transaction } from "@solana/web3.js";
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
   createAssociatedTokenAccountIdempotentInstruction,
@@ -72,10 +72,6 @@ interface MasterProgramMethods {
   masterCloseWithdrawal: (amount: BN) => {
     accounts: (accounts: MasterAdjustAccounts) => InstructionBuilder;
   };
-}
-
-interface ProviderLike {
-  sendAndConfirm: (tx: Transaction) => Promise<string>;
 }
 
 function formatTimestamp(raw: string): string {
@@ -934,7 +930,7 @@ export function MasterOperationsCard() {
           <div>
             <h2 className="text-sm font-medium text-white">Withdrawals</h2>
             <p className="mt-1 text-xs text-neutral-500">
-              Current withdrawal records stored in the BunkerCash program.
+              Current withdrawal records stored in the WonderToken program.
             </p>
           </div>
           <span className="text-xs text-neutral-500">

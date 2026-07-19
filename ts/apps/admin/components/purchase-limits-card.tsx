@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { BN } from "@coral-xyz/anchor";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { PublicKey, SendTransactionError, SystemProgram, Transaction } from "@solana/web3.js";
+import { PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
   createAssociatedTokenAccountInstruction,
@@ -75,10 +75,6 @@ interface SetSupportedUsdcMintMethods {
       instruction: () => Promise<Transaction["instructions"][number]>;
     };
   };
-}
-
-interface ProviderLike {
-  sendAndConfirm: (tx: Transaction) => Promise<string>;
 }
 
 function parseLimitInput(value: string): bigint | null {

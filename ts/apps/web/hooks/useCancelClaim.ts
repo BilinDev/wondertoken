@@ -183,7 +183,7 @@ export function useCancelClaim({ onDone }: { onDone?: () => void } = {}) {
       markClaimCancelledOptimistic(claim.pubkey);
       invalidateTransactionCache();
       showToast(
-        `Request cancelled — BNKR returned to your wallet. Tx: ${sig.slice(0, 8)}…`,
+        `Request cancelled — WNDR returned to your wallet. Tx: ${sig.slice(0, 8)}…`,
         "success",
       );
       onDone?.();

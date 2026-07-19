@@ -78,7 +78,7 @@ export function Sidebar() {
           </div>
           <div>
             <div className="font-semibold text-sm text-white leading-tight">
-              BunkerCash
+              WonderToken
             </div>
             <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-medium">
               Admin

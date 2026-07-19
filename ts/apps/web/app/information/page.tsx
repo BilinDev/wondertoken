@@ -122,7 +122,7 @@ export default function InformationPage() {
             Documentation
           </h1>
           <span className="text-[13px] text-ink-3">
-            Documentation, restrictions, and risk disclosures for BunkerCash.
+            Documentation, restrictions, and risk disclosures for WonderToken.
           </span>
         </div>
 
@@ -146,9 +146,11 @@ export default function InformationPage() {
               {/* 1. Overview */}
               <ContentSection id="overview" title="1. Overview">
                 <P>
-                  BunkerCash is an access-restricted digital token protocol. The
-                  protocol does not provide ownership in assets, rights to
-                  revenue, guaranteed liquidity, or guaranteed future value.
+                  WonderToken is an access-restricted digital token protocol.
+                  WNDR is the utility token of the WonderCall network on
+                  Solana. The protocol does not provide ownership in assets,
+                  rights to revenue, guaranteed liquidity, or guaranteed
+                  future value.
                 </P>
                 <P>
                   Protocol functions are available only in eligible
@@ -186,9 +188,9 @@ export default function InformationPage() {
                 title="3. Token Limitations"
               >
                 <P>
-                  BunkerCash tokens are digital protocol tokens only. They do
-                  not represent any share, equity, debt, security, or other
-                  financial instrument. Holding tokens does not create any
+                  WonderToken (WNDR) tokens are digital protocol tokens only.
+                  They do not represent any share, equity, debt, security, or
+                  other financial instrument. Holding tokens does not create any
                   contractual relationship or entitlement to benefits, profits,
                   or distributions of any kind.
                 </P>

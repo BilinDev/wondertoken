@@ -17,7 +17,7 @@ export function SectionCard({
     <section
       aria-label={label}
       className={cn(
-        "overflow-hidden rounded-xl border border-line bg-surface",
+        "overflow-hidden rounded-2xl border border-line bg-surface",
         className,
       )}
     >
@@ -126,10 +126,10 @@ export function MetricGrid({ metrics }: { metrics: Metric[] }) {
   );
 }
 
-export type PillTone = "mint" | "warn" | "danger" | "info" | "neutral";
+export type PillTone = "up" | "warn" | "danger" | "info" | "neutral";
 
 const pillTones: Record<PillTone, string> = {
-  mint: "text-mint bg-mint-soft",
+  up: "text-up bg-up-soft",
   warn: "text-warn bg-warn-soft",
   danger: "text-danger bg-danger-soft",
   info: "text-info bg-info-soft",

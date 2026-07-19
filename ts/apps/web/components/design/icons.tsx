@@ -1,4 +1,4 @@
-// Inline icon set for the BunkerCash design system.
+// Inline icon set for the WonderToken design system.
 // All icons inherit `currentColor` and are aria-hidden decorative by default.
 
 type IconProps = {
@@ -200,6 +200,67 @@ export function SunIcon({ size = 15, className, style }: IconProps) {
   );
 }
 
+export function MoonIcon({ size = 13, className, style }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+      style={style}
+    >
+      <path
+        d="M13.6 9.3A5.6 5.6 0 0 1 6.7 2.4 5.6 5.6 0 1 0 13.6 9.3Z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Primary-nav icons (Home / Swap / Wallet / Token / Learn). */
+export const NAV_ICON_PATHS = {
+  home: "M3.5 9.5 10 4l6.5 5.5M5 8.4V15.5h3.2v-3.7h3.6v3.7H15V8.4",
+  swap: "M4 7.2h9M10.6 4.6 13.4 7.2l-2.8 2.6M16 12.8H7M9.4 10.2 6.6 12.8l2.8 2.6",
+  wallet:
+    "M3.2 6.8h10.6a1.5 1.5 0 0 1 1.5 1.5V14a1.5 1.5 0 0 1-1.5 1.5H4.7A1.5 1.5 0 0 1 3.2 14ZM15 10.1h-1.9a1.3 1.3 0 0 0 0 2.6H15",
+  token: "M10 2.8 17.2 10 10 17.2 2.8 10ZM10 7.2v5.6M7.2 10h5.6",
+  learn:
+    "M10 5.4C8.4 4.3 6 4.1 4 4.4v9.3c2-.3 4.4-.1 6 1 1.6-1.1 4-1.3 6-1V4.4c-2-.3-4.4-.1-6 1ZM10 5.4v9.3",
+} as const;
+
+export type NavIconKey = keyof typeof NAV_ICON_PATHS;
+
+export function NavIcon({
+  icon,
+  size = 16,
+  className,
+  style,
+}: IconProps & { icon: NavIconKey }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+      style={style}
+    >
+      <path
+        d={NAV_ICON_PATHS[icon]}
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function WalletIcon({ size = 20, className, style }: IconProps) {
   return (
     <svg
@@ -248,14 +309,14 @@ export function ArrowRightIcon({ size = 14, className, style }: IconProps) {
   );
 }
 
-/** BunkerCash logo mark: two skewed accent bars in a bordered tile. */
+/** WonderToken wordmark: lowercase brand text followed by an accent dot. */
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <span
-      className={`flex h-7 w-7 flex-none flex-col items-center justify-center gap-[2.5px] rounded-lg border border-line-2 bg-surface-3 ${className ?? ""}`}
-    >
-      <span className="block h-[3.5px] w-3 -skew-x-[16deg] rounded-[1.5px] bg-mint" />
-      <span className="block h-[3.5px] w-3 -skew-x-[16deg] rounded-[1.5px] bg-mint opacity-45" />
+    <span className={`flex items-baseline ${className ?? ""}`}>
+      <span className="text-[18px] font-medium tracking-[-0.015em] text-ink">
+        wondertoken
+      </span>
+      <span className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-mint" />
     </span>
   );
 }

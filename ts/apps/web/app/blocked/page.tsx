@@ -3,7 +3,7 @@ import { WarnIcon } from "@/components/design/icons";
 import { Disclaimer } from "@/components/design/Disclaimer";
 
 export const metadata = {
-  title: "Access Restricted | BunkerCash",
+  title: "Access Restricted | WonderToken",
 };
 
 export default function BlockedPage() {
@@ -12,12 +12,12 @@ export default function BlockedPage() {
       <Disclaimer />
       <div className="flex flex-1 items-center justify-center px-4">
         <div className="flex max-w-md flex-col items-center gap-5 text-center">
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-sell-line bg-sell-soft">
-            <WarnIcon size={24} className="text-sell" />
+          <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-danger-line bg-danger-soft">
+            <WarnIcon size={24} className="text-danger" />
           </span>
           <h1 className="text-2xl font-semibold">Access restricted</h1>
           <div className="flex flex-col gap-3 text-[13.5px] leading-relaxed text-ink-3">
-            <p>BunkerCash is not available in your jurisdiction.</p>
+            <p>WonderToken is not available in your jurisdiction.</p>
             <p>
               Access to protocol functions has been restricted based on
               jurisdictional and eligibility requirements.

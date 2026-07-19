@@ -8,7 +8,7 @@ import {
   useRef,
   type ReactNode,
 } from "react";
-import { CheckCircle, AlertCircle, AlertTriangle, X } from "lucide-react";
+import { CloseIcon } from "@/components/design/icons";
 
 type ToastType = "success" | "error" | "warning";
 
@@ -23,6 +23,19 @@ interface ToastContextValue {
 }
 
 const ToastContext = createContext<ToastContextValue | null>(null);
+
+const TOAST_DOT: Record<ToastType, string> = {
+  success: "bg-up",
+  error: "bg-danger",
+  warning: "bg-warn",
+};
+
+// Spoken prefix so the toast state doesn't rely on dot color alone.
+const TOAST_SR_LABEL: Record<ToastType, string> = {
+  success: "Success:",
+  error: "Error:",
+  warning: "Warning:",
+};
 
 export function useToast() {
   const ctx = useContext(ToastContext);
@@ -57,56 +70,32 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
-  const icon = (type: ToastType) => {
-    switch (type) {
-      case "success":
-        return <CheckCircle className="h-5 w-5 text-[#00FFB2] flex-shrink-0" />;
-      case "error":
-        return <AlertCircle className="h-5 w-5 text-red-400 flex-shrink-0" />;
-      case "warning":
-        return <AlertTriangle className="h-5 w-5 text-yellow-400 flex-shrink-0" />;
-    }
-  };
-
-  const borderColor = (type: ToastType) => {
-    switch (type) {
-      case "success":
-        return "border-[#00FFB2]/30";
-      case "error":
-        return "border-red-500/30";
-      case "warning":
-        return "border-yellow-500/30";
-    }
-  };
-
-  const bgColor = (type: ToastType) => {
-    switch (type) {
-      case "success":
-        return "bg-[#00FFB2]/10";
-      case "error":
-        return "bg-red-500/10";
-      case "warning":
-        return "bg-yellow-500/10";
-    }
-  };
-
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
       {/* Toast container */}
-      <div className="fixed top-4 right-4 z-[9999] flex flex-col gap-3 max-w-sm w-full pointer-events-none">
+      <div
+        aria-live="polite"
+        className="pointer-events-none fixed right-4 top-[140px] z-[9999] flex w-full max-w-[min(340px,calc(100vw-32px))] flex-col gap-2"
+      >
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`pointer-events-auto flex items-start gap-3 rounded-xl border ${borderColor(toast.type)} ${bgColor(toast.type)} backdrop-blur-sm px-4 py-3 shadow-lg animate-in slide-in-from-right-5 fade-in duration-300`}
+            className="pointer-events-auto flex animate-toast-in items-start gap-2.5 rounded-xl border border-line-2 bg-surface-2 px-3.5 py-3 shadow-pop"
           >
-            {icon(toast.type)}
-            <p className="text-sm text-neutral-200 flex-1">{toast.message}</p>
+            <span
+              className={`mt-[5px] h-[7px] w-[7px] flex-none rounded-full ${TOAST_DOT[toast.type]}`}
+            />
+            <p className="flex-1 text-[13px] leading-normal text-ink">
+              <span className="sr-only">{TOAST_SR_LABEL[toast.type]} </span>
+              {toast.message}
+            </p>
             <button
               onClick={() => dismiss(toast.id)}
-              className="text-neutral-500 hover:text-neutral-300 flex-shrink-0"
+              aria-label="Dismiss notification"
+              className="flex h-[18px] w-[18px] flex-none items-center justify-center rounded-[5px] text-ink-3 transition-colors hover:text-ink"
             >
-              <X className="h-4 w-4" />
+              <CloseIcon size={10} />
             </button>
           </div>
         ))}

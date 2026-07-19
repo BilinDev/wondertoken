@@ -56,15 +56,15 @@ export function StatusRail() {
       ? { dot: "bg-warn", label: "Connecting…" }
       : stale
         ? { dot: "bg-warn", label: "Degraded — stale data" }
-        : { dot: "bg-mint", label: "Operational" };
+        : { dot: "bg-up", label: "Operational" };
 
   return (
     <div className="border-b border-line bg-surface">
       <div className="rail-scroll mx-auto flex h-9 max-w-[1320px] items-center px-6 max-[839px]:px-4">
         {stats.pricePerToken != null && (
           <RailItem
-            label="BNKR/USDC"
-            value={stats.pricePerToken.toFixed(4)}
+            label="WNDR/USDC"
+            value={`$${stats.pricePerToken.toFixed(4)}`}
             tip={GLOSSARY.referenceRate}
             valueClassName="text-ink"
           />
@@ -74,7 +74,7 @@ export function StatusRail() {
             label="24H"
             value={`${change24h >= 0 ? "+" : "−"}${Math.abs(change24h).toFixed(2)}%`}
             tip="Change in the reference rate over the past 24 hours"
-            valueClassName={change24h >= 0 ? "text-mint" : "text-sell"}
+            valueClassName={change24h >= 0 ? "text-up" : "text-down"}
           />
         )}
         {stats.treasuryUsdc != null && (
@@ -94,7 +94,7 @@ export function StatusRail() {
         {stats.circulatingSupply != null && (
           <RailItem
             label="Circulating"
-            value={`${stats.circulatingSupply} BNKR`}
+            value={`${stats.circulatingSupply} WNDR`}
             tip={GLOSSARY.circulatingSupply}
           />
         )}

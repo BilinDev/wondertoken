@@ -16,6 +16,8 @@ import { NAV_ITEMS, isNavActive } from "./nav";
 import {
   ChevronDownIcon,
   LogoMark,
+  MoonIcon,
+  NavIcon,
   Spinner,
   SunIcon,
 } from "@/components/design/icons";
@@ -24,23 +26,45 @@ function shortAddress(value: string, head = 4, tail = 4): string {
   return `${value.slice(0, head)}…${value.slice(-tail)}`;
 }
 
+/**
+ * Segmented light/dark control from the WonderToken design.
+ * Selected styling is driven by the `data-theme` attribute next-themes puts
+ * on <html> before first paint, so there is no wrong-state hydration flash;
+ * aria-pressed stays unset until the client knows the resolved theme.
+ */
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const isDark = !mounted || resolvedTheme === "dark";
-  const aria = isDark ? "Switch to light theme" : "Switch to dark theme";
+  const isLight = mounted ? resolvedTheme === "light" : undefined;
   return (
-    <button
-      type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={aria}
-      title={aria}
-      className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface-2 text-ink-2 transition-colors hover:border-line-2 hover:text-ink"
+    <div
+      role="group"
+      aria-label="Theme"
+      className="flex h-9 items-center rounded-[10px] border border-line bg-surface-2 p-[3px]"
     >
-      <SunIcon />
-    </button>
+      <button
+        type="button"
+        onClick={() => setTheme("light")}
+        aria-label="Light theme"
+        title="Light theme"
+        aria-pressed={isLight}
+        className="flex h-7 w-[30px] items-center justify-center rounded-[7px] text-ink-3 transition-colors hover:text-ink-2 [[data-theme=light]_&]:bg-surface [[data-theme=light]_&]:text-mint"
+      >
+        <SunIcon size={14} />
+      </button>
+      <button
+        type="button"
+        onClick={() => setTheme("dark")}
+        aria-label="Dark theme"
+        title="Dark theme"
+        aria-pressed={isLight == null ? undefined : !isLight}
+        className="flex h-7 w-[30px] items-center justify-center rounded-[7px] bg-surface-3 text-ink transition-colors [[data-theme=light]_&]:bg-transparent [[data-theme=light]_&]:text-ink-3 [[data-theme=light]_&]:hover:text-ink-2"
+      >
+        <MoonIcon size={13} />
+      </button>
+    </div>
   );
 }
 
@@ -94,7 +118,7 @@ function WalletArea() {
       <button
         type="button"
         onClick={() => openConnect(true)}
-        className="flex h-9 items-center whitespace-nowrap rounded-lg bg-mint-btn px-4 text-[13.5px] font-semibold text-mint-ink transition-colors hover:bg-mint-btn-h"
+        className="flex h-9 items-center whitespace-nowrap rounded-[10px] bg-mint-btn px-4 text-[13.5px] font-semibold text-mint-ink shadow-glow transition-colors hover:bg-mint-btn-h"
       >
         Connect wallet
       </button>
@@ -112,14 +136,14 @@ function WalletArea() {
         aria-label="Wallet menu"
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((o) => !o)}
-        className="flex h-9 items-center gap-2 rounded-lg border border-line bg-surface-2 px-3 transition-colors hover:border-line-2"
+        className="flex h-9 items-center gap-2 rounded-[10px] border border-line bg-surface-2 px-3 transition-colors hover:border-line-2"
       >
-        <span className="h-1.5 w-1.5 flex-none rounded-full bg-mint" />
+        <span className="h-1.5 w-1.5 flex-none rounded-full bg-up" />
         <span className="font-mono text-[12.5px]">{shortAddress(address)}</span>
         <ChevronDownIcon className="text-ink-3" />
       </button>
       {menuOpen && (
-        <div className="absolute right-0 top-11 z-[70] w-[236px] animate-rise rounded-[10px] border border-line-2 bg-surface-2 p-1.5 shadow-pop">
+        <div className="absolute right-0 top-11 z-[70] w-[236px] animate-rise rounded-xl border border-line-2 bg-surface-2 p-1.5 shadow-pop">
           <div className="flex flex-col gap-[3px] px-3 pb-2 pt-2.5">
             <span className="break-all font-mono text-xs text-ink">
               {shortAddress(address, 8, 8)}
@@ -163,7 +187,7 @@ function WalletArea() {
               setMenuOpen(false);
               void wallet?.disconnect();
             }}
-            className="block w-full rounded-[7px] px-3 py-[9px] text-[13.5px] text-sell transition-colors hover:bg-sell-soft"
+            className="block w-full rounded-[7px] px-3 py-[9px] text-[13.5px] text-down transition-colors hover:bg-down-soft"
           >
             Disconnect
           </button>
@@ -178,44 +202,40 @@ export function SiteHeader() {
 
   return (
     <header className="border-b border-line bg-surface">
-      <div className="mx-auto flex h-16 max-w-[1320px] items-center justify-between gap-4 px-6 max-[839px]:h-14 max-[839px]:px-4">
-        <div className="flex min-w-0 items-center gap-7">
-          <Link
-            href="/"
-            aria-label="BunkerCash home"
-            className="flex flex-none items-center gap-2.5 rounded-lg text-ink no-underline hover:no-underline"
-          >
-            <LogoMark />
-            <span className="text-[15.5px] font-semibold tracking-[-0.01em]">
-              BunkerCash
-            </span>
-          </Link>
-          <nav
-            aria-label="Primary"
-            className="hidden items-center gap-0.5 desk:flex"
-          >
-            {NAV_ITEMS.map((item) => {
-              const active = isNavActive(item, pathname);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={cn(
-                    "rounded-lg px-[13px] py-[7px] text-[13.5px] no-underline transition-colors hover:no-underline",
-                    active
-                      ? "bg-surface-3 font-semibold text-ink"
-                      : "font-medium text-ink-2 hover:bg-surface-2 hover:text-ink",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-        </div>
+      <div className="mx-auto grid h-16 max-w-[1320px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 max-[839px]:flex max-[839px]:h-14 max-[839px]:justify-between max-[839px]:px-4">
+        <Link
+          href="/"
+          aria-label="WonderToken home"
+          className="flex flex-none items-center justify-self-start rounded-[10px] text-ink no-underline hover:no-underline"
+        >
+          <LogoMark />
+        </Link>
+        <nav
+          aria-label="Primary"
+          className="hidden items-center gap-1 justify-self-center desk:flex"
+        >
+          {NAV_ITEMS.map((item) => {
+            const active = isNavActive(item, pathname);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "flex items-center gap-[7px] rounded-[10px] px-3 py-[7px] text-[13.5px] no-underline transition-colors hover:text-ink hover:no-underline",
+                  active
+                    ? "font-semibold text-mint"
+                    : "font-medium text-ink-2",
+                )}
+              >
+                <NavIcon icon={item.icon} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
 
-        <div className="flex flex-none items-center gap-2">
+        <div className="flex flex-none items-center gap-2 justify-self-end">
           <ThemeToggle />
           <WalletArea />
         </div>

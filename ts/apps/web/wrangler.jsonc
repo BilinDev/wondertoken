@@ -1,10 +1,9 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
   "main": "worker.js",
-  "name": "bunkercash-web",
-  // bunkercash.com is attached to the bunkercash-web worker in this account
-  // (Contact@bunkercoin.io). Deploying elsewhere will not update the domain.
-  "account_id": "9eb655a86ca1ba777efa7889d7eb93e6",
+  "name": "wondertoken-web",
+  // WonderToken public application domain.
+  "account_id": "386e4cf5839a99b310dc5cce80ed9700",
   "compatibility_date": "2024-09-23",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "observability": {
@@ -17,17 +16,18 @@
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "bunkercash-web",
+      "service": "wondertoken-web",
     },
   ],
   "triggers": {
     "crons": ["10 0 * * *"],
   },
-  // Custom domain routes — uncomment when the zone is added to this account:
-  // "routes": [
-  //   { "pattern": "bunkercash.com", "custom_domain": true },
-  //   { "pattern": "www.bunkercash.com", "custom_domain": true },
-  // ],
+  "routes": [
+    {
+      "pattern": "token.wondercall.ai",
+      "custom_domain": true,
+    },
+  ],
   "vars": {
     "NEXT_PUBLIC_SOLANA_RPC_URL": "https://api.testnet.solana.com",
     "NEXT_PUBLIC_SOLANA_CLUSTER": "testnet",
@@ -39,8 +39,8 @@
   "kv_namespaces": [
     {
       "binding": "GEOBLOCKING_KV",
-      "id": "9abcd5888b5c436fba6f445f8ba68e98",
-      "preview_id": "a6f9582a6f8444bea09b37128e00bb17",
+      "id": "ab2af7d9d20a40aea3d93673f8d01394",
+      "preview_id": "5ccb6fdc64b44e399a09fd7c6e4bb93d",
     },
   ],
   "durable_objects": {
@@ -60,8 +60,8 @@
   "d1_databases": [
     {
       "binding": "METRICS_DB",
-      "database_id": "97cc29d2-b9e4-4430-83ce-bb1272e1d629",
-      "database_name": "bunkercash-metrics",
+      "database_id": "7cd90090-11c0-4d4e-aa65-8598b49049bb",
+      "database_name": "wondertoken-metrics-prod",
       "migrations_dir": "../../packages/metrics-data/migrations",
     },
   ],

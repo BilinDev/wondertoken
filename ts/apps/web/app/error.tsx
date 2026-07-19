@@ -13,7 +13,7 @@ export default function ErrorPage({
       <Disclaimer />
       <div className="flex flex-1 items-center justify-center px-4">
         <div className="flex flex-col items-center gap-5 text-center">
-          <span className="font-mono text-[80px] font-bold leading-none text-sell max-[839px]:text-[56px]">
+          <span className="font-mono text-[80px] font-bold leading-none text-danger max-[839px]:text-[56px]">
             500
           </span>
           <h1 className="text-2xl font-semibold">Something went wrong</h1>

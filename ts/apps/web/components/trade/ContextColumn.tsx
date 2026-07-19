@@ -40,7 +40,7 @@ function MarketContext() {
   return (
     <section
       aria-label="Market context"
-      className="flex flex-col gap-3 rounded-xl border border-line bg-surface px-[18px] py-4"
+      className="flex flex-col gap-3 rounded-2xl border border-line bg-surface px-[18px] py-4"
     >
       <div className="flex items-baseline justify-between gap-2.5">
         <span className="text-[13px] font-semibold">
@@ -48,7 +48,7 @@ function MarketContext() {
         </span>
         {change != null && (
           <span
-            className={`font-mono text-xs tabular-nums ${change >= 0 ? "text-mint" : "text-sell"}`}
+            className={`font-mono text-xs tabular-nums ${change >= 0 ? "text-up" : "text-down"}`}
           >
             {change >= 0 ? "↑ +" : "↓ −"}
             {Math.abs(change).toFixed(2)}%
@@ -57,7 +57,7 @@ function MarketContext() {
       </div>
       <div className="flex items-baseline gap-2">
         <span className="font-mono text-[26px] font-semibold tracking-[-0.01em] tabular-nums">
-          {rate != null ? rate.toFixed(4) : "—"}
+          {rate != null ? `$${rate.toFixed(4)}` : "—"}
         </span>
         <span className="text-[12.5px] text-ink-3">USDC</span>
       </div>
@@ -122,7 +122,7 @@ function YourPosition() {
   return (
     <section
       aria-label="Your position"
-      className="flex flex-col gap-2.5 rounded-xl border border-line bg-surface px-[18px] py-4"
+      className="flex flex-col gap-2.5 rounded-2xl border border-line bg-surface px-[18px] py-4"
     >
       <span className="text-[13px] font-semibold">Your position</span>
       {connected ? (
@@ -134,15 +134,15 @@ function YourPosition() {
             </span>
           </div>
           <div className="flex justify-between gap-2.5 text-[13px]">
-            <span className="text-ink-3">BNKR balance</span>
+            <span className="text-ink-3">WNDR balance</span>
             <span className="font-mono text-[12.5px] tabular-nums text-ink-2">
-              {bnkrBalance != null ? `${bnkrBalance} BNKR` : "—"}
+              {bnkrBalance != null ? `${bnkrBalance} WNDR` : "—"}
             </span>
           </div>
           <div className="flex justify-between gap-2.5 text-[13px]">
             <span className="text-ink-3">In escrow</span>
             <span className="font-mono text-[12.5px] tabular-nums text-ink-2">
-              {fmtNum(escrowBnkr)} BNKR
+              {fmtNum(escrowBnkr)} WNDR
             </span>
           </div>
           <div className="flex justify-between gap-2.5 text-[13px]">
@@ -184,7 +184,7 @@ function RecentActivity() {
   return (
     <section
       aria-label="Recent activity"
-      className="flex flex-col gap-1.5 rounded-xl border border-line bg-surface px-[18px] py-4"
+      className="flex flex-col gap-1.5 rounded-2xl border border-line bg-surface px-[18px] py-4"
     >
       <div className="flex items-center justify-between gap-2.5 pb-1">
         <span className="text-[13px] font-semibold">Recent activity</span>
@@ -201,7 +201,7 @@ function RecentActivity() {
           const pending = t.status === "pending" || t.status === "partial";
           const amount =
             t.tokenAmount != null && t.tokenAmount > 0
-              ? `${buy ? "+" : "−"}${t.tokenAmount.toLocaleString("en-US", { maximumFractionDigits: 2 })} BNKR`
+              ? `${buy ? "+" : "−"}${t.tokenAmount.toLocaleString("en-US", { maximumFractionDigits: 2 })} WNDR`
               : `${buy ? "+" : "−"}$${fmtNum(t.amount)}`;
           return (
             <div
@@ -210,7 +210,7 @@ function RecentActivity() {
             >
               <span className="flex min-w-0 items-center gap-[9px]">
                 <span
-                  className={`h-[7px] w-[7px] flex-none rounded-sm ${buy ? "bg-mint" : "bg-sell"}`}
+                  className={`h-[7px] w-[7px] flex-none rounded-sm ${buy ? "bg-up" : "bg-sell"}`}
                 />
                 <span className="flex min-w-0 flex-col">
                   <span className="text-[12.5px] font-medium">
@@ -231,7 +231,7 @@ function RecentActivity() {
                 </span>
               </span>
               <span
-                className={`whitespace-nowrap font-mono text-xs tabular-nums ${buy ? "text-mint" : "text-sell"}`}
+                className={`whitespace-nowrap font-mono text-xs tabular-nums ${buy ? "text-up" : "text-sell"}`}
               >
                 {amount}
               </span>

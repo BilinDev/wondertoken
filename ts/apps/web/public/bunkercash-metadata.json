@@ -1,16 +1,16 @@
 {
-  "name": "BunkerCash",
-  "symbol": "BunkerCash",
-  "description": "BunkerCash token metadata.",
-  "image": "https://bunkercash.com/bunkercash.jpeg",
-  "external_url": "https://bunkercash.com",
+  "name": "WonderToken",
+  "symbol": "WNDR",
+  "description": "WNDR — utility token of the WonderCall network on Solana.",
+  "image": "https://wondercall.ai/favicon.ico",
+  "external_url": "https://wondercall.ai",
   "seller_fee_basis_points": 0,
   "properties": {
     "category": "image",
     "files": [
       {
-        "uri": "https://bunkercash.com/bunkercash.jpeg",
-        "type": "image/jpeg"
+        "uri": "https://wondercall.ai/favicon.ico",
+        "type": "image/x-icon"
       }
     ]
   }

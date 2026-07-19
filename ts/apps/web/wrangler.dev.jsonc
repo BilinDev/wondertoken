@@ -1,7 +1,8 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
   "main": "worker.js",
-  "name": "bunkercash-web-next-dev",
+  "name": "wondertoken-web-next-dev",
+  "account_id": "386e4cf5839a99b310dc5cce80ed9700",
   "compatibility_date": "2024-09-23",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "vars": {
@@ -10,21 +11,21 @@
     "NEXT_PUBLIC_CLUSTER": "devnet",
     "NEXT_PUBLIC_USDC_MINT": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
     "TRUST_CLOUDFLARE_HEADERS": "true",
-    "NEXT_PUBLIC_SQUADS_MULTISIG_PUBKEY": "HEzTX4LNQ7cjrXTt1vKXyEZGtc94TKRUc9kWNFexJSGz"
+    "NEXT_PUBLIC_SQUADS_MULTISIG_PUBKEY": "HEzTX4LNQ7cjrXTt1vKXyEZGtc94TKRUc9kWNFexJSGz",
   },
   "kv_namespaces": [
     {
       "binding": "GEOBLOCKING_KV",
-      "id": "90dd5883670b4004b07dd0101882ffca",
-      "preview_id": "1b082a764e57434b8b9663a51b378606"
-    }
+      "id": "1ae7b31d1a304acab6912cac1f7fd42e",
+      "preview_id": "af134de989c0419cb0cebd41bad9f53c",
+    },
   ],
   "d1_databases": [
     {
       "binding": "METRICS_DB",
-      "database_id": "258218e5-e0d2-4f78-a272-c6a76174bcd6",
-      "database_name": "bunkercash-metrics",
-      "migrations_dir": "../../packages/metrics-data/migrations"
-    }
-  ]
+      "database_id": "1a0abf93-5ad4-4a69-9a97-7ee1bed9a116",
+      "database_name": "wondertoken-metrics-dev",
+      "migrations_dir": "../../packages/metrics-data/migrations",
+    },
+  ],
 }

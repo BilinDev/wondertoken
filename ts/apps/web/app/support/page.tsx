@@ -6,7 +6,7 @@ import { SupportRequestForm } from "@/components/SupportRequestForm";
 import { getSupportContactDetails } from "@/lib/support-requests";
 
 export const metadata = {
-  title: "Support | BunkerCash",
+  title: "Support | WonderToken",
 };
 
 interface SupportPageProps {

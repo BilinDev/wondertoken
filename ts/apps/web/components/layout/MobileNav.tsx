@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { NavIcon } from "@/components/design/icons";
 import { NAV_ITEMS, isNavActive } from "./nav";
 
 /** Fixed bottom navigation for small screens. */
@@ -22,16 +23,11 @@ export function MobileNav() {
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "flex min-h-12 flex-col items-center justify-center gap-[3px] rounded-lg no-underline transition-colors hover:no-underline",
-              active ? "text-ink" : "text-ink-3",
+              "flex min-h-12 flex-col items-center justify-center gap-1 rounded-[10px] no-underline transition-colors hover:no-underline",
+              active ? "text-mint" : "text-ink-3",
             )}
           >
-            <span
-              className={cn(
-                "h-[2.5px] w-4 rounded-sm bg-mint transition-opacity",
-                active ? "opacity-100" : "opacity-0",
-              )}
-            />
+            <NavIcon icon={item.icon} size={20} />
             <span className="text-[11px] font-semibold">{item.label}</span>
           </Link>
         );

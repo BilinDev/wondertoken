@@ -1,7 +1,8 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
   "main": "worker.js",
-  "name": "bunkercash-admin-next-dev",
+  "name": "wondertoken-admin-next-dev",
+  "account_id": "386e4cf5839a99b310dc5cce80ed9700",
   "compatibility_date": "2024-09-23",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "vars": {
@@ -9,22 +10,22 @@
     "NEXT_PUBLIC_SOLANA_CLUSTER": "devnet",
     "NEXT_PUBLIC_CLUSTER": "devnet",
     "NEXT_PUBLIC_USDC_MINT": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
-    "NEXT_PUBLIC_TOKEN_METADATA_URI": "https://bunkercash-web.bunkercoin.workers.dev/bunkercash-metadata.json",
-    "NEXT_PUBLIC_SQUADS_MULTISIG_PUBKEY": "HEzTX4LNQ7cjrXTt1vKXyEZGtc94TKRUc9kWNFexJSGz"
+    "NEXT_PUBLIC_TOKEN_METADATA_URI": "https://token.wondercall.ai/bunkercash-metadata.json",
+    "NEXT_PUBLIC_SQUADS_MULTISIG_PUBKEY": "HEzTX4LNQ7cjrXTt1vKXyEZGtc94TKRUc9kWNFexJSGz",
   },
   "kv_namespaces": [
     {
       "binding": "GEOBLOCKING_KV",
-      "id": "9abcd5888b5c436fba6f445f8ba68e98",
-      "preview_id": "a6f9582a6f8444bea09b37128e00bb17"
-    }
+      "id": "1ae7b31d1a304acab6912cac1f7fd42e",
+      "preview_id": "af134de989c0419cb0cebd41bad9f53c",
+    },
   ],
   "d1_databases": [
     {
       "binding": "METRICS_DB",
-      "database_id": "97cc29d2-b9e4-4430-83ce-bb1272e1d629",
-      "database_name": "bunkercash-metrics",
-      "migrations_dir": "../../packages/metrics-data/migrations"
-    }
-  ]
+      "database_id": "1a0abf93-5ad4-4a69-9a97-7ee1bed9a116",
+      "database_name": "wondertoken-metrics-dev",
+      "migrations_dir": "../../packages/metrics-data/migrations",
+    },
+  ],
 }

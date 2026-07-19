@@ -44,9 +44,9 @@ export function TradePageContent({ side }: { side: TradeSide }) {
     <Layout>
       <PageContainer className="gap-5">
         <div className="flex flex-col gap-0.5">
-          <h1 className="text-xl font-semibold tracking-[-0.01em]">Trade</h1>
+          <h1 className="text-xl font-semibold tracking-[-0.01em]">Swap</h1>
           <span className="text-[13px] text-ink-3">
-            Buy and sell BNKR at the on-chain reference rate. Non-custodial —
+            Buy and sell WNDR at the on-chain reference rate. Non-custodial —
             every transaction is signed in your wallet.
           </span>
         </div>
@@ -55,7 +55,7 @@ export function TradePageContent({ side }: { side: TradeSide }) {
           {/* Composer */}
           <section
             aria-label="Transaction composer"
-            className="flex max-w-[600px] flex-[1.15_1_400px] flex-col gap-3.5 rounded-[14px] border border-line bg-surface p-4 desk:p-[18px]"
+            className="flex max-w-[600px] flex-[1.15_1_400px] flex-col gap-3.5 rounded-2xl border border-line bg-surface p-4 desk:p-[18px]"
           >
             <div
               role="tablist"

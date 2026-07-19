@@ -184,13 +184,13 @@ export function SupportRequestForm({
       </label>
 
       {error && (
-        <div className="rounded-lg border border-sell-line bg-sell-soft px-4 py-2.5 text-[13px] text-sell">
+        <div className="rounded-lg border border-danger-line bg-danger-soft px-4 py-2.5 text-[13px] text-danger">
           {error}
         </div>
       )}
 
       {success && (
-        <div className="rounded-lg border border-mint-line bg-mint-soft px-4 py-2.5 text-[13px] text-mint">
+        <div className="rounded-lg border border-up-line bg-up-soft px-4 py-2.5 text-[13px] text-up">
           {success}
         </div>
       )}

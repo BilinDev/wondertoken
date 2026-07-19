@@ -217,7 +217,7 @@ export function WithdrawInterface() {
     } catch {
       setPoolState(null)
     }
-  }, [connection, feeConfigPda, minClaimConfigPda, poolPda, program])
+  }, [connection, feeConfigPda, minClaimConfigPda, program])
 
   useEffect(() => {
     void fetchPoolState()
@@ -267,7 +267,7 @@ export function WithdrawInterface() {
       return `Sell request must be worth at least ${toUi(poolState.minClaimUsdc, 6)} USDC after fees`
     }
     if (publicKey && tokenBalanceRaw != null && amountRaw > tokenBalanceRaw) {
-      return `Amount exceeds your BNKR balance of ${tokenBalanceUi}.`
+      return `Amount exceeds your WNDR balance of ${tokenBalanceUi}.`
     }
     return null
   }, [amountRaw, amountUi, netClaimUsdcRaw, poolState, tokenBalanceRaw, tokenBalanceUi, publicKey])
@@ -298,7 +298,7 @@ export function WithdrawInterface() {
 
       if (tokenBalanceRaw != null && amountRaw > tokenBalanceRaw) {
         setPhase("review");
-        showToast("Insufficient BNKR balance", "error");
+        showToast("Insufficient WNDR balance", "error");
         txInFlight.current = false;
         setSubmitting(false);
         return;
@@ -373,7 +373,7 @@ export function WithdrawInterface() {
         },
       });
       setReceipt([
-        { k: "Escrowed", v: `${soldUi} BNKR` },
+        { k: "Escrowed", v: `${soldUi} WNDR` },
         { k: "Received (est.)", v: `${receivedUi} USDC` },
         { k: "Signature", v: `${sig.slice(0, 5)}…${sig.slice(-4)}` },
       ]);
@@ -470,7 +470,7 @@ export function WithdrawInterface() {
     ctaDisabled = true;
   } else if (inputError) {
     ctaLabel = inputError.startsWith("Amount exceeds")
-      ? "Insufficient BNKR"
+      ? "Insufficient WNDR"
       : "Review sell request";
     ctaDisabled = true;
   } else if (!confirmed) {
@@ -487,25 +487,25 @@ export function WithdrawInterface() {
   }
 
   const sheetRows: SheetRow[] = [
-    { k: "You sell", v: `${amountUi || "0"} BNKR`, strong: true },
-    { k: "Reference rate", v: `1 BNKR = ${rateFmt} USDC` },
+    { k: "You sell", v: `${amountUi || "0"} WNDR`, strong: true },
+    { k: "Reference rate", v: `1 WNDR = ${rateFmt} USDC` },
     {
       k: "Claim fee",
       v:
         feePct == null
           ? "—"
           : feeBunkercashRaw != null && feeBunkercashRaw > 0n
-            ? `${feePct}% (${toUi(feeBunkercashRaw, 6)} BNKR)`
+            ? `${feePct}% (${toUi(feeBunkercashRaw, 6)} WNDR)`
             : `${feePct}%`,
     },
     {
       k: "Escrowed after fee",
-      v: netBunkercashRaw != null ? `${toUi(netBunkercashRaw, 6)} BNKR` : "—",
+      v: netBunkercashRaw != null ? `${toUi(netBunkercashRaw, 6)} WNDR` : "—",
     },
     {
       k: "Expected settlement",
       v: expectImmediate ? "Immediate" : "Queued — depends on liquidity",
-      tone: expectImmediate ? "mint" : "warn",
+      tone: expectImmediate ? "up" : "warn",
     },
     {
       k: "Minimum claim",
@@ -515,7 +515,7 @@ export function WithdrawInterface() {
       k: "You receive (est.)",
       v: `${estUsdcUi || "0"} USDC`,
       strong: true,
-      tone: "mint",
+      tone: "up",
       highlight: true,
     },
   ];
@@ -523,13 +523,13 @@ export function WithdrawInterface() {
   return (
     <>
       <span className="text-[12.5px] leading-relaxed text-ink-3">
-        Selling files a settlement request. Your BNKR is escrowed and USDC is
+        Selling files a settlement request. Your WNDR is escrowed and USDC is
         paid from pool liquidity — cancellable while unsettled.
       </span>
 
       <AmountInputCard
         label="You sell"
-        token="BNKR"
+        token="WNDR"
         value={amountUi}
         onChange={setAmountUi}
         balance={publicKey && tokenBalanceUi != null ? tokenBalanceUi : "—"}
@@ -549,7 +549,7 @@ export function WithdrawInterface() {
       />
 
       <div className="flex flex-col gap-2 px-1 py-0.5">
-        <DetailRow label="Reference rate">1 BNKR = {rateFmt} USDC</DetailRow>
+        <DetailRow label="Reference rate">1 WNDR = {rateFmt} USDC</DetailRow>
         <DetailRow label="Claim fee">
           {feePct != null ? `${feePct}%` : "—"}
         </DetailRow>
@@ -559,7 +559,7 @@ export function WithdrawInterface() {
         </DetailRow>
         <DetailRow label="Expected settlement" mono={false}>
           <span
-            className={`font-medium ${expectImmediate ? "text-mint" : "text-warn"}`}
+            className={`font-medium ${expectImmediate ? "text-up" : "text-warn"}`}
           >
             {expectImmediate ? "Immediate" : "Queued — partial fill likely"}
           </span>
@@ -567,7 +567,7 @@ export function WithdrawInterface() {
       </div>
 
       <AckCheckbox checked={confirmed} onToggle={() => setConfirmed(!confirmed)}>
-        I understand a claim fee is deducted, my remaining BNKR is locked in
+        I understand a claim fee is deducted, my remaining WNDR is locked in
         escrow while the request is open, settlement depends on available pool
         liquidity, and I can cancel an unsettled request at any time.
       </AckCheckbox>
@@ -602,8 +602,8 @@ export function WithdrawInterface() {
         rows={sheetRows}
         sellNote={
           expectImmediate
-            ? "Your BNKR moves to escrow when the request is created. At current liquidity this request is expected to settle immediately."
-            : "Your BNKR moves to escrow when the request is created. This request may exceed liquid USDC and will queue until liquidity is replenished."
+            ? "Your WNDR moves to escrow when the request is created. At current liquidity this request is expected to settle immediately."
+            : "Your WNDR moves to escrow when the request is created. This request may exceed liquid USDC and will queue until liquidity is replenished."
         }
         liveSig={liveSig}
         receipt={receipt}

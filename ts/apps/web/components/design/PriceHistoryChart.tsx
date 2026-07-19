@@ -81,7 +81,7 @@ export function PriceHistoryChart({
       return {
         y,
         pct: `${((y / H) * 100).toFixed(2)}%`,
-        label: val.toFixed(4),
+        label: `$${val.toFixed(4)}`,
       };
     });
   }, [g]);
@@ -107,7 +107,7 @@ export function PriceHistoryChart({
   if (hovering) {
     const p = points[hoverIdx!];
     tipTime = `${fmtDay(p.t)}, ${fmtTime(p.t)}`;
-    tipVal = `${p.v.toFixed(4)} USDC`;
+    tipVal = `$${p.v.toFixed(4)}`;
     const dl = (p.v / values[0] - 1) * 100;
     tipDeltaUp = dl >= 0;
     tipDelta = `${dl >= 0 ? "+" : "−"}${Math.abs(dl).toFixed(2)}%`;
@@ -122,7 +122,7 @@ export function PriceHistoryChart({
           viewBox={`0 0 ${W} ${H}`}
           preserveAspectRatio="none"
           role="img"
-          aria-label={`BNKR reference rate history, currently ${last.toFixed(4)} USDC`}
+          aria-label={`WNDR reference rate history, currently $${last.toFixed(4)} USDC`}
           className="block h-[220px] w-full cursor-crosshair desk:h-[264px]"
           onMouseMove={(e) => {
             const r = e.currentTarget.getBoundingClientRect();
@@ -192,7 +192,7 @@ export function PriceHistoryChart({
           className="absolute right-0 -translate-y-1/2 bg-surface py-px pl-1.5 font-mono text-[10.5px] tabular-nums text-ink-3"
           style={{ top: `${((refY / H) * 100).toFixed(2)}%` }}
         >
-          open {refVal.toFixed(4)}
+          open ${refVal.toFixed(4)}
         </span>
 
         <div
@@ -208,7 +208,7 @@ export function PriceHistoryChart({
               {tipVal}
             </span>
             <span
-              className={`font-mono text-[11.5px] tabular-nums ${tipDeltaUp ? "text-mint" : "text-sell"}`}
+              className={`font-mono text-[11.5px] tabular-nums ${tipDeltaUp ? "text-up" : "text-down"}`}
             >
               {tipDelta}
             </span>

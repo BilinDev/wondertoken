@@ -245,7 +245,7 @@ export function BuyPrimaryInterface() {
       setPoolError("rpc_error");
       setPoolState(null);
     }
-  }, [program, poolPda, connection, purchaseLimitConfigPda, feeConfigPda, endpoint]);
+  }, [program, connection, purchaseLimitConfigPda, feeConfigPda, endpoint]);
 
   useEffect(() => {
     void fetchPoolState();
@@ -403,7 +403,7 @@ export function BuyPrimaryInterface() {
       const bunkercashMintInfo = await connection.getAccountInfo(bunkercashMintPda);
       if (!bunkercashMintInfo) {
         const msg =
-          "The BunkerCash mint PDA is not initialized for this program yet.";
+          "The WonderToken mint PDA is not initialized for this program yet.";
         setFailureMessage(msg);
         setPhase("failed");
         showToast(msg, "error");
@@ -483,7 +483,7 @@ export function BuyPrimaryInterface() {
 
       setReceipt([
         { k: "Paid", v: `${paidUi} USDC` },
-        { k: "Received (est.)", v: `${receivedUi} BNKR` },
+        { k: "Received (est.)", v: `${receivedUi} WNDR` },
         { k: "Signature", v: `${sig.slice(0, 5)}…${sig.slice(-4)}` },
       ]);
       setLiveSig(sig);
@@ -561,7 +561,7 @@ export function BuyPrimaryInterface() {
 
   const sheetRows: SheetRow[] = [
     { k: "You pay", v: `${usdcAmount || "0"} USDC`, strong: true },
-    { k: "Reference rate", v: `1 BNKR = ${rateFmt} USDC` },
+    { k: "Reference rate", v: `1 WNDR = ${rateFmt} USDC` },
     {
       k: "Protocol fee",
       v:
@@ -577,9 +577,9 @@ export function BuyPrimaryInterface() {
     },
     {
       k: "You receive (est.)",
-      v: `${tokenAmountUi || "0"} BNKR`,
+      v: `${tokenAmountUi || "0"} WNDR`,
       strong: true,
-      tone: "mint",
+      tone: "up",
       highlight: true,
     },
   ];
@@ -587,7 +587,7 @@ export function BuyPrimaryInterface() {
   return (
     <>
       <span className="text-[12.5px] leading-relaxed text-ink-3">
-        USDC converts at the live reference rate. BNKR is minted directly to
+        USDC converts at the live reference rate. WNDR is minted directly to
         your wallet — keep a small amount of SOL to cover network fees.
       </span>
 
@@ -607,13 +607,13 @@ export function BuyPrimaryInterface() {
 
       <AmountOutputCard
         label="You receive (estimated)"
-        token="BNKR"
+        token="WNDR"
         value={tokenAmountUi}
         balance={publicKey && bnkrBalance != null ? bnkrBalance : "—"}
       />
 
       <div className="flex flex-col gap-2 px-1 py-0.5">
-        <DetailRow label="Reference rate">1 BNKR = {rateFmt} USDC</DetailRow>
+        <DetailRow label="Reference rate">1 WNDR = {rateFmt} USDC</DetailRow>
         <DetailRow label="Protocol fee">
           {feePct != null ? `${feePct}%` : "—"}
         </DetailRow>

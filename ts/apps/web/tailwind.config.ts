@@ -24,7 +24,7 @@ export default {
         desk: "840px",
       },
       colors: {
-        // BunkerCash design tokens (see index.css)
+        // WonderToken design tokens (see index.css)
         canvas: "var(--bg)",
         surface: {
           DEFAULT: "var(--surface)",
@@ -53,6 +53,17 @@ export default {
           h: "var(--sell-h)",
           soft: "var(--sell-soft)",
           line: "var(--sell-line)",
+        },
+        // Market movement (price up/down, confirmed states)
+        up: {
+          DEFAULT: "var(--up)",
+          soft: "var(--up-soft)",
+          line: "var(--up-line)",
+        },
+        down: {
+          DEFAULT: "var(--down)",
+          soft: "var(--down-soft)",
+          line: "var(--down-line)",
         },
         warn: {
           DEFAULT: "var(--amber)",
@@ -128,6 +139,7 @@ export default {
       },
       boxShadow: {
         pop: "var(--shadow-pop)",
+        glow: "var(--btn-glow)",
       },
       borderRadius: {
         lg: "var(--radius)",

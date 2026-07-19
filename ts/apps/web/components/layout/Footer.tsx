@@ -5,10 +5,18 @@ export const Footer = () => {
     <footer className="flex-none border-t border-line bg-surface">
       <div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-3.5 px-6 pb-[84px] pt-[18px] desk:pb-[18px] max-[839px]:px-4">
         <span className="text-[12.5px] text-ink-3">
-          BunkerCash — informational interface for the BunkerCash protocol on
-          Solana.
+          wondertoken — utility token of the WonderCall network on Solana.
+          Tokens can lose all value.
         </span>
         <span className="flex gap-5 text-[12.5px]">
+          <a
+            href="https://wondercall.ai/en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-ink-2 no-underline hover:text-ink hover:no-underline"
+          >
+            wondercall.ai
+          </a>
           <Link
             href="/information"
             className="text-ink-2 no-underline hover:text-ink hover:no-underline"

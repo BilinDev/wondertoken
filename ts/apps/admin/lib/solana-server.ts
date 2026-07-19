@@ -83,7 +83,7 @@ export interface SerializedEvent {
   time: number;
   wallet: string;
   amount: number | null;
-  currency: "BNKR" | "USDC" | null;
+  currency: "WNDR" | "USDC" | null;
   txHash: string;
 }
 
@@ -277,9 +277,9 @@ export async function fetchAllClaims(): Promise<ClaimsResponse> {
 
 // ── Events fetcher ─────────────────────────────────────
 
-const DISC_MAP: Record<string, { type: string; currency: "BNKR" | "USDC" | null; amountSource: string }> = {
+const DISC_MAP: Record<string, { type: string; currency: "WNDR" | "USDC" | null; amountSource: string }> = {
   "184,148,250,169,224,213,34,126": { type: "Buy", currency: "USDC", amountSource: "ix_arg" },
-  "187,254,40,13,146,223,230,97": { type: "File Claim", currency: "BNKR", amountSource: "ix_arg" },
+  "187,254,40,13,146,223,230,97": { type: "File Claim", currency: "WNDR", amountSource: "ix_arg" },
   "58,91,9,15,201,59,179,94": { type: "Settlement", currency: "USDC", amountSource: "claims_settled_event" },
   "251,226,132,202,30,7,50,85": { type: "Master Withdraw", currency: "USDC", amountSource: "ix_arg" },
   "196,123,175,178,81,52,168,164": { type: "Master Repay", currency: "USDC", amountSource: "ix_arg" },
@@ -288,7 +288,7 @@ const DISC_MAP: Record<string, { type: string; currency: "BNKR" | "USDC" | null;
 
 const CLAIMS_SETTLED_EVENT_DISC = [88, 125, 52, 74, 137, 168, 85, 245];
 const CLAIMS_SETTLED_TOTAL_PAID_OFFSET = 8 + 32 + 32 + 8 + 8 + 8; // 96
-const BNKR_DECIMALS = 6;
+const WNDR_DECIMALS = 6;
 
 function decodeU64LE(bytes: Uint8Array, offset: number): bigint {
   let value = BigInt(0);
@@ -370,7 +370,7 @@ export async function fetchRecentEvents(limit = 20): Promise<EventsResponse> {
           let amount: number | null = null;
           if (info.amountSource === "ix_arg" && data.length >= 16) {
             const raw = decodeU64LE(data, 8);
-            const decimals = info.currency === "BNKR" ? BNKR_DECIMALS : USDC_DECIMALS;
+            const decimals = info.currency === "WNDR" ? WNDR_DECIMALS : USDC_DECIMALS;
             amount = Number(raw) / 10 ** decimals;
           } else if (info.amountSource === "claims_settled_event") {
             amount = parseClaimsSettledAmount(tx.meta?.logMessages);

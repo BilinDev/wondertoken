@@ -17,7 +17,7 @@ export interface ProgramEvent {
   time: Date
   wallet: string
   amount: number | null
-  currency: "BNKR" | "USDC" | null
+  currency: "WNDR" | "USDC" | null
   txHash: string
 }
 

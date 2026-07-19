@@ -13,7 +13,7 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="flex min-h-screen flex-col text-[14.5px] leading-normal">
+    <div className="page-canvas flex min-h-screen flex-col text-[14.5px] leading-normal">
       <Disclaimer />
       <EnvNotice />
       <div className="sticky top-0 z-[60] flex-none">

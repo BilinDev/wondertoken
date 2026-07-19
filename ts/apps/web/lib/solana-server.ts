@@ -35,15 +35,15 @@ import { getServerRpcEndpoint, getConfiguredRpcCluster } from "@/lib/solana-env"
 
 export interface PoolDataResponse {
   tokenPrice: number;
-  // Total BNKR that exists on the mint = circulating + escrowed. Escrowed
+  // Total WNDR that exists on the mint = circulating + escrowed. Escrowed
   // tokens back pending (cancelable) sell requests and are only burned at
   // settlement, so they still count toward total supply until then.
   totalSupplyRaw: number;
-  // BNKR freely held by users (the on-chain pool.total_bunkercash_supply,
+  // WNDR freely held by users (the on-chain pool.total_bunkercash_supply,
   // which is reduced when a sell is filed and restored if it is cancelled).
   // This is the denominator used for per-token pricing.
   circulatingSupplyRaw: number;
-  // BNKR locked in pool escrow for pending sell requests.
+  // WNDR locked in pool escrow for pending sell requests.
   escrowBunkercashRaw: number;
   navUsdcRaw: number;
   pendingClaimsUsdcRaw: number;

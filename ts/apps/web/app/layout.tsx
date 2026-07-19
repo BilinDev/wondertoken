@@ -21,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BunkerCash",
-  description: "BunkerCash is an on-chain protocol on Solana.",
+  title: "WonderToken",
+  description: "WNDR is the utility token of the WonderCall network on Solana.",
   icons: {
     icon: "/icon-favicon.png",
   },

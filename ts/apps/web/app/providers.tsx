@@ -25,9 +25,9 @@ export function Providers({ children }: { children: ReactNode }) {
           autoConnect: true,
           env: getWalletEnv(),
           metadata: {
-            name: "BunkerCash",
-            description: "BunkerCash - Tokenized Commodities",
-            url: "https://bunkercash.io",
+            name: "WonderToken",
+            description: "WonderToken - utility token of the WonderCall network",
+            url: "https://wondercall.ai",
             iconUrls: ["/icon-transparent.png"],
           },
           walletlistExplanation: {
