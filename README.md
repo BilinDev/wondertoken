@@ -1,4 +1,4 @@
-# BunkerCash Monorepo
+# WonderToken Monorepo
 
 **Work in progress - Pre-MVP stage**
 
