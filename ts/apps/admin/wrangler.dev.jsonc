@@ -16,8 +16,7 @@
   "kv_namespaces": [
     {
       "binding": "GEOBLOCKING_KV",
-      "id": "1ae7b31d1a304acab6912cac1f7fd42e",
-      "preview_id": "af134de989c0419cb0cebd41bad9f53c",
+      "id": "af134de989c0419cb0cebd41bad9f53c",
     },
   ],
   "d1_databases": [

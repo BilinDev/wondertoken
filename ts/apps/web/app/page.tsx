@@ -177,7 +177,7 @@ export default function Home() {
     [dayHistory],
   );
   const change24h = useMemo(() => {
-    if (heroSparkValues.length < 2) return null;
+    if (heroSparkValues.length < 2 || heroSparkValues[0] === 0) return null;
     return (
       (heroSparkValues[heroSparkValues.length - 1] / heroSparkValues[0] - 1) *
       100
@@ -413,7 +413,7 @@ export default function Home() {
                 <span className="text-ink-3">100 USDC receives</span>
                 <span className="font-mono tabular-nums text-ink-2">
                   {rate != null && rate > 0
-                    ? `≈ ${(100 / rate).toLocaleString("en-US", { maximumFractionDigits: 2 })} WNDR`
+                    ? `≈ ${((100 * (10000 - (stats.purchaseFeeBps ?? 0)) / 10000) / rate).toLocaleString("en-US", { maximumFractionDigits: 2 })} WNDR`
                     : "—"}
                 </span>
               </div>
